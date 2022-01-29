@@ -7,4 +7,4 @@ This is the repository for my bookings and reservations project.
 
 * [chi router](https://github.com/go-chi/chi)
 * [SCS](https://github.com/alexedwards/scs/v2) session management
-* nosurf [nosurf](https://github.com/justinas/nosurf)
+* [nosurf](https://github.com/justinas/nosurf)
