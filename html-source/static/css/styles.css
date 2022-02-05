@@ -1,0 +1,25 @@
+.my-footer {
+	height: 5em;
+	background-color: #163b65;
+	margin-top: 1em;
+	padding: 1em;
+	color: white;
+	font-size: 100%;
+}
+
+.room-image {
+	max-width: 50%;
+}
+
+.notie-container {
+	box-shadow: none;
+}
+
+/* Move the .datepicker on top of sweetAlert using z-index */
+.datepicker {
+	z-index: 10 !important;
+}
+
+.swal2-actions {
+	z-index: 0 !important;
+}
