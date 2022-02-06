@@ -11,3 +11,5 @@ This is the repository for my bookings and reservations project.
   - [Vanillajs Datepicker](https://mymth.github.io/vanillajs-datepicker/#/): Awsome Date Range Picker.
   - [Notie](https://github.com/jaredreich/notie): notification, input, and selection suite for Javascript, with no dependencies.
   - [Sweet Alert](https://github.com/t4t5/sweetalert): A beautiful replacement for JavaScript's "alert".
+  - [GoValidator](https://github.com/asaskevich/govalidator): Author asaskevich.
+  - [Jet Template Engine v6](https://github.com/CloudyKit/jet): Jet is a template engine developed to be easy to use, powerful, dynamic, yet secure and very fast for Golang.

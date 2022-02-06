@@ -10,6 +10,7 @@ import (
 
 	"github.com/TranQuocToan1996/bookings/internal/config"
 	"github.com/TranQuocToan1996/bookings/internal/models"
+
 	"github.com/justinas/nosurf"
 )
 
@@ -19,6 +20,11 @@ var functions = template.FuncMap{}
 var app *config.AppConfig
 
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	// taking message from session to user, after that delete that message from session
+	td.Flash = app.Session.PopString(r.Context(), "flash")
+	td.Error = app.Session.PopString(r.Context(), "error")
+	td.Warning = app.Session.PopString(r.Context(), "warning")
+
 	td.CSRFToken = nosurf.Token(r)
 	return td
 }

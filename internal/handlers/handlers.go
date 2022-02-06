@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/TranQuocToan1996/bookings/internal/config"
+	"github.com/TranQuocToan1996/bookings/internal/forms"
 	"github.com/TranQuocToan1996/bookings/internal/models"
 	"github.com/TranQuocToan1996/bookings/internal/render"
 )
@@ -29,6 +30,10 @@ func NewRepo(a *config.AppConfig) *Repository {
 // NewHandlers sets the repository for the handler
 func NewHandlers(r *Repository) {
 	Repo = r
+}
+
+func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, r, "contact.page.html", &models.TemplateData{})
 }
 
 // Another page handle request and send back home page response
@@ -56,7 +61,61 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 
 // Renders the page
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{})
+	var emptyReservation models.Revervation
+	data := make(map[string]interface{})
+	data["reservation"] = emptyReservation
+
+	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
+		Form: forms.New(nil),
+		Data: data,
+	})
+}
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	reservation := models.Revervation{
+		FirstName: r.Form.Get("first_name"),
+		LastName:  r.Form.Get("last_name"),
+		Email:     r.Form.Get("email"),
+		Phone:     r.Form.Get("phone"),
+	}
+
+	// Create new form variable
+	// r.PostForm contain all url and data.
+	// PostForm contains the parsed form data from PATCH, POST or PUT body parameters.
+	// This field is only available after ParseForm is called.
+	form := forms.New(r.PostForm)
+
+	// Check empty input in 4 fields
+	form.Required("first_name", "last_name", "phone", "email")
+	// Check length for first_name box
+	form.MinLength("first_name", 3, r)
+	form.MinLength("last_name", 3, r)
+	//Check valid pattern
+	form.IsPhoneNumber("phone")
+	form.IsEmail("email")
+
+	if !form.Valid() {
+		data := make(map[string]interface{})
+		data["reservation"] = reservation
+
+		render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
+			Form: form,
+			Data: data,
+		})
+		return
+	}
+
+	// Write Reservation info into session, we will add logic to added this info into reservation-summary.page.html
+	m.App.Session.Put(r.Context(), "reservation", reservation)
+
+	// Redirect to /reservation-summary after send post request to prevent accident send post twice
+	// http.StatusSeeOther - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/303
+	http.Redirect(w, r, "/reservation-summary", http.StatusSeeOther)
 }
 
 func (m *Repository) Generals(w http.ResponseWriter, r *http.Request) {
@@ -70,19 +129,34 @@ func (m *Repository) Majors(w http.ResponseWriter, r *http.Request) {
 func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, r, "search-availability.page.html", &models.TemplateData{})
 }
-
-func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "contact.page.html", &models.TemplateData{})
-}
-
-// Render page for the after sending post request
 func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
+	// Render page for the after sending post request
 	// Taking data from post request
 	start := r.Form.Get("start")
 	end := r.Form.Get("end")
 
 	// Dont want render page again, just send a HTTP reply to brower
 	w.Write([]byte(fmt.Sprintf("Start date is %s and End date is %s", start, end)))
+}
+
+func (m *Repository) ReservationSummary(w http.ResponseWriter, r *http.Request) {
+	// Taking reservation info from session
+	// Because the session don't know what type should return, so we use type assertion
+	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Revervation)
+	if !ok {
+		m.App.Session.Put(r.Context(), "error", "Can't get reservation from session!")
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		return
+	}
+
+	// Remove reservation from session
+	m.App.Session.Remove(r.Context(), "reservation")
+
+	data := make(map[string]interface{})
+	data["reservation"] = reservation
+	render.RenderTemplate(w, r, "reservation-summary.page.html", &models.TemplateData{
+		Data: data,
+	})
 }
 
 type jsonResponse struct {

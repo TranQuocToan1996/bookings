@@ -1,5 +1,9 @@
 package models
 
+import (
+	"github.com/TranQuocToan1996/bookings/internal/forms"
+)
+
 // TemplateData hold data set from handlers to template
 type TemplateData struct {
 	StringMap map[string]string
@@ -10,4 +14,5 @@ type TemplateData struct {
 	Flash     string // Message send to user
 	Warning   string
 	Error     string
+	Form      *forms.Form
 }

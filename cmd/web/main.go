@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/TranQuocToan1996/bookings/internal/config"
 	"github.com/TranQuocToan1996/bookings/internal/handlers"
+	"github.com/TranQuocToan1996/bookings/internal/models"
 	"github.com/TranQuocToan1996/bookings/internal/render"
 	"github.com/alexedwards/scs/v2"
 )
@@ -19,6 +21,10 @@ var session *scs.SessionManager
 
 // Main application func
 func main() {
+
+	// https://stackoverflow.com/questions/47071276/decode-gob-output-without-knowing-concrete-types
+	// Tell application about things (Premitive types) we need store in session
+	gob.Register(models.Revervation{})
 
 	// Production
 	app.InProduction = false

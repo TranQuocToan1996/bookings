@@ -157,6 +157,10 @@
 				});
 			}
 
+
+
+
+
 			let attention = Prompt();
 			function Prompt() {
 				let toast = function (c) {
@@ -255,6 +259,19 @@
 					custom: custom,
 				};
 			}
+			
+			// Popup info when user accident go to a page, ie ReservationSummary
+			{{with .Error}}
+			notify("{{.}}", "error")
+			{{end}}
+
+			{{with .Flash}}
+			notify("{{.}}", "success")
+			{{end}}
+
+			// {{with .Warning}}
+			// notify("{{.}}", "warning")
+			// {{end}}
 		</script>
 	</body>
 </html>
