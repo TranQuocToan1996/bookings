@@ -8,8 +8,9 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/TranQuocToan1996/bookings/pkg/config"
-	"github.com/TranQuocToan1996/bookings/pkg/models"
+	"github.com/TranQuocToan1996/bookings/internal/config"
+	"github.com/TranQuocToan1996/bookings/internal/models"
+	"github.com/justinas/nosurf"
 )
 
 // Create func and pass to template
@@ -17,7 +18,8 @@ var functions = template.FuncMap{}
 
 var app *config.AppConfig
 
-func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	td.CSRFToken = nosurf.Token(r)
 	return td
 }
 
@@ -26,7 +28,7 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func RenderTemplate(w http.ResponseWriter, html string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, html string, td *models.TemplateData) {
 
 	// Sometime in development, Rebuild the template on every requests
 	var tc map[string]*template.Template
@@ -46,7 +48,7 @@ func RenderTemplate(w http.ResponseWriter, html string, td *models.TemplateData)
 	// Turn template cache (In memory) into some bytes
 	buf := new(bytes.Buffer)
 
-	td = AddDefaultData(td)
+	td = AddDefaultData(td, r)
 
 	_ = t.Execute(buf, td)
 

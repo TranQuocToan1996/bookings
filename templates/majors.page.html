@@ -1,0 +1,66 @@
+{{template "base" .}} {{define "content"}}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<img
+				class="img-fluid img-thumbnail mx-auto d-block room-image"
+				src="/static/images/marjors-suite.png"
+				alt="generals-quarters"
+			/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col">
+			<h1 class="text-center mt-5">Majors Suite</h1>
+			<p>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus vel
+				autem quod recusandae cupiditate voluptatum dignissimos eaque, adipisci
+				accusantium, iure tenetur expedita omnis ipsam dolores voluptates
+				facere? Rem, itaque unde. Quibusdam, inventore nisi esse doloremque
+				ullam aliquid provident. Iste, illum commodi eius praesentium voluptas
+				doloremque maiores iusto reprehenderit aspernatur eligendi?
+			</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col text-center">
+			<a id="check-availability-button" href="#!" class="btn btn-success"
+				>Check availability</a
+			>
+		</div>
+	</div>
+</div>
+{{end}}
+
+<!-- Js block -->
+{{define "js"}}
+<script>
+	document
+		.getElementById("check-availability-button")
+		.addEventListener("click", function () {
+			let html = `
+					<form id="check-availability-form" action="" method="post" novalidate class="needs-validation"
+						<div class="row">
+							<div class="col">
+								<div class="row" id="reservation-dates-modal">
+									<div class="col">
+										<input required disabled class="form-control" type="text" name="start" id="start" placeholder="Start date">
+									</div>
+									<div class="col">
+										<input required disabled class="form-control" type="text" name="end" id="end" placeholder="End date">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<br><br><br><br><br><br><br><br><br><br><br><br>
+					`;
+			attention.custom({
+				msg: html,
+				title: "Choose your date",
+			});
+		});
+</script>
+{{end}}
