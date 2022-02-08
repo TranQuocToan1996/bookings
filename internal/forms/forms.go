@@ -2,7 +2,6 @@ package forms
 
 import (
 	"fmt"
-	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
@@ -25,8 +24,8 @@ func New(data url.Values) *Form {
 }
 
 // Has if form field is in post request and not empty value
-func (f *Form) Has(field string, r *http.Request) bool {
-	valueField := r.Form.Get(field)
+func (f *Form) Has(field string) bool {
+	valueField := f.Get(field)
 	return valueField != ""
 	// if valueField != "" {
 	// 	return true
@@ -50,8 +49,8 @@ func (f *Form) Valid() bool {
 }
 
 // MinLength check for string minimum length
-func (f *Form) MinLength(field string, length int, r *http.Request) bool {
-	value := r.Form.Get(field)
+func (f *Form) MinLength(field string, length int) bool {
+	value := f.Get(field)
 	if len(value) < length {
 		f.Errors.Add(field, fmt.Sprintf("This field must be at least %d character long", length))
 		return false
@@ -60,28 +59,28 @@ func (f *Form) MinLength(field string, length int, r *http.Request) bool {
 }
 
 // Check for valid email address
-func (f *Form) IsEmail(email string) {
-	if !govalidator.IsEmail(f.Get(email)) {
-		f.Errors.Add(email, "Invalid email address!")
+func (f *Form) IsEmail(field string) {
+	if !govalidator.IsEmail(f.Get(field)) {
+		f.Errors.Add(field, "Invalid email address!")
 	}
 }
 
 // Check for valid phone number
-func (f *Form) IsPhoneNumber(phone string) {
+func (f *Form) IsPhoneNumber(field string) {
 	// This pattern use for VN, US area
-	regexpPatternList := []string{
+	regexpPatternListPhoneNum := []string{
 		`^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$`,
 		`(84|0[3|5|7|8|9])+([0-9]{8})\b`,
 		`^[0-9\-\+]{9,15}$`,
 		`^(\+\d{1,3}[- ]?)?\d{10}$`,
-		`^(?:.*?[A-Za-z]){3}.*$`,
+		`(84|0[3|5|7|8|9])+([0-9]{8})\b`,
 	}
 
-	for _, pattern := range regexpPatternList {
+	for _, pattern := range regexpPatternListPhoneNum {
 		re := regexp.MustCompile(pattern)
-		if re.MatchString(f.Get(phone)) {
+		if re.MatchString(f.Get(field)) {
 			return
 		}
 	}
-	f.Errors.Add(phone, "Invalid Phone Number!")
+	f.Errors.Add(field, "Invalid Phone Number!")
 }

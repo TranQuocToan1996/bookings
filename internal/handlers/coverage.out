@@ -1,0 +1,22 @@
+mode: set
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:24.47,28.2 1 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:31.33,33.2 1 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:35.70,37.2 1 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:40.67,44.2 3 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:47.68,60.2 5 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:63.74,72.2 4 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:73.78,75.16 2 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:80.2,102.19 8 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:114.2,118.66 2 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:75.16,78.3 2 0
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:102.19,111.3 4 0
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:121.71,123.2 1 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:125.69,127.2 1 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:129.75,131.2 1 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:132.79,140.2 3 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:142.81,146.9 2 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:153.2,159.4 4 0
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:146.9,150.3 3 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:170.79,177.16 3 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:182.2,183.15 2 1
+github.com/TranQuocToan1996/bookings/internal/handlers/handlers.go:177.16,179.3 1 0

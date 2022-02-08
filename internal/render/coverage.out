@@ -1,0 +1,23 @@
+mode: set
+github.com/TranQuocToan1996/bookings/internal/render/render.go:25.84,33.2 5 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:36.40,38.2 1 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:40.105,44.18 2 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:52.2,53.9 2 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:59.2,66.16 5 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:71.2,71.12 1 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:44.18,47.3 1 0
+github.com/TranQuocToan1996/bookings/internal/render/render.go:47.8,50.3 1 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:53.9,56.3 2 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:66.16,69.3 2 0
+github.com/TranQuocToan1996/bookings/internal/render/render.go:88.67,94.16 3 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:99.2,99.29 1 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:130.2,130.21 1 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:94.16,96.3 1 0
+github.com/TranQuocToan1996/bookings/internal/render/render.go:99.29,107.17 4 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:113.3,114.17 2 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:118.3,118.23 1 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:127.3,127.21 1 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:107.17,110.4 1 0
+github.com/TranQuocToan1996/bookings/internal/render/render.go:114.17,117.4 1 0
+github.com/TranQuocToan1996/bookings/internal/render/render.go:118.23,120.18 2 1
+github.com/TranQuocToan1996/bookings/internal/render/render.go:120.18,123.5 1 0

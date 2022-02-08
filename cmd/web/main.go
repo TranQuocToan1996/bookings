@@ -22,8 +22,26 @@ var session *scs.SessionManager
 // Main application func
 func main() {
 
+	err := run()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Starting application on port:", portNumber)
+	// Start the server
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
+	// Start server. After server close or shutdown, return err
+	err = srv.ListenAndServe()
+	log.Fatal(err)
+}
+
+func run() error {
 	// https://stackoverflow.com/questions/47071276/decode-gob-output-without-knowing-concrete-types
 	// Tell application about things (Premitive types) we need store in session
+	// In other words, we register Revervation to save in session
 	gob.Register(models.Revervation{})
 
 	// Production
@@ -45,6 +63,7 @@ func main() {
 	if err != nil {
 		// If we can't get template cache, we can't show any pages
 		log.Fatal("Can't create template cache: ", err)
+		return err
 	}
 	app.TemplateCache = tc
 	app.UseCache = false
@@ -61,14 +80,5 @@ func main() {
 	   	http.HandleFunc("/about", handlers.Repo.About)
 		http.ListenAndServe(portNumber, nil)
 	*/
-
-	fmt.Println("Starting application on port:", portNumber)
-	// Start the server
-	srv := &http.Server{
-		Addr:    portNumber,
-		Handler: routes(&app),
-	}
-	// Start server. After server close or shutdown, return err
-	err = srv.ListenAndServe()
-	log.Fatal(err)
+	return nil
 }

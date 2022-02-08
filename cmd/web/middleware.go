@@ -7,14 +7,16 @@ import (
 	"github.com/justinas/nosurf"
 )
 
+// WriteToConsole log some text to terminal when client load a page
 func WriteToConsole(next http.Handler) http.Handler {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Hit the page")
+		fmt.Println("Hit the page: " + r.Host + r.URL.Path)
 		next.ServeHTTP(w, r)
 	})
 }
 
+// NoSurf adds CSRF protestion for all POST requests
 func NoSurf(next http.Handler) http.Handler {
 
 	csrfHandler := nosurf.New(next)

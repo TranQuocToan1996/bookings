@@ -93,8 +93,8 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	// Check empty input in 4 fields
 	form.Required("first_name", "last_name", "phone", "email")
 	// Check length for first_name box
-	form.MinLength("first_name", 3, r)
-	form.MinLength("last_name", 3, r)
+	form.MinLength("first_name", 3)
+	form.MinLength("last_name", 3)
 	//Check valid pattern
 	form.IsPhoneNumber("phone")
 	form.IsEmail("email")

@@ -1,0 +1,20 @@
+mode: set
+github.com/TranQuocToan1996/bookings/internal/forms/errors.go:6.40,8.2 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/errors.go:11.42,13.27 2 1
+github.com/TranQuocToan1996/bookings/internal/forms/errors.go:16.2,16.23 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/errors.go:13.27,15.3 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:19.33,24.2 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:27.39,34.2 2 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:37.43,38.31 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:38.31,40.37 2 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:40.37,42.4 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:47.29,49.2 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:52.57,54.25 2 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:58.2,58.13 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:54.25,57.3 2 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:62.38,63.40 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:63.40,65.3 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:69.44,79.52 2 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:85.2,85.46 1 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:79.52,81.35 2 1
+github.com/TranQuocToan1996/bookings/internal/forms/forms.go:81.35,83.4 1 1

@@ -1,0 +1,12 @@
+mode: set
+github.com/TranQuocToan1996/bookings/cmd/web/middleware.go:11.53,13.71 1 1
+github.com/TranQuocToan1996/bookings/cmd/web/middleware.go:13.71,16.3 2 0
+github.com/TranQuocToan1996/bookings/cmd/web/middleware.go:20.45,32.2 3 1
+github.com/TranQuocToan1996/bookings/cmd/web/middleware.go:37.50,39.2 1 1
+github.com/TranQuocToan1996/bookings/cmd/web/routes.go:12.49,51.2 19 1
+github.com/TranQuocToan1996/bookings/cmd/web/main.go:23.13,26.16 2 0
+github.com/TranQuocToan1996/bookings/cmd/web/main.go:30.2,38.16 4 0
+github.com/TranQuocToan1996/bookings/cmd/web/main.go:26.16,28.3 1 0
+github.com/TranQuocToan1996/bookings/cmd/web/main.go:41.18,63.16 10 1
+github.com/TranQuocToan1996/bookings/cmd/web/main.go:68.2,83.12 6 1
+github.com/TranQuocToan1996/bookings/cmd/web/main.go:63.16,67.3 2 0
