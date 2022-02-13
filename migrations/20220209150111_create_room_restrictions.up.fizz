@@ -1,0 +1,8 @@
+create_table("room_restriction") {
+  t.Column("id", "integer", {primary: true})
+  t.Column("start_date", "date", {})
+  t.Column("end_date", "date", {})
+  t.Column("room_id", "int", {})
+  t.Column("reservation_id", "int", {})
+  t.Column("restriction_id", "int", {})
+}

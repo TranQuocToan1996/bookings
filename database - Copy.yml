@@ -1,0 +1,15 @@
+# Please change this file name to database.yml
+# How to run: https://gobuffalo.io/en/docs/db/migrations
+development:
+  dialect: postgres
+  database: bookings
+  user: # Add
+  password: # Add
+  host: 127.0.0.1
+  pool: 5
+
+test:
+  url: {{envOr "TEST_DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/myapp_test"}}
+
+production:
+  url: {{envOr "DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/myapp_production"}}

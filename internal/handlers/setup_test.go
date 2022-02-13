@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"time"
 
@@ -31,6 +32,11 @@ func getRoutes() http.Handler {
 	// Production
 	app.InProduction = false
 
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
+
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	// Keep session even after close window/browser
@@ -55,7 +61,7 @@ func getRoutes() http.Handler {
 	// Pass new repo to handler
 	NewHandlers(repo)
 
-	render.NewTemplates(&app)
+	render.NewRenderer(&app)
 
 	// Using chi
 	mux := chi.NewRouter()
@@ -136,7 +142,7 @@ func CreateTestTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		// fmt.Println(filepath.Base("/foo/bar/baz.js")) return baz.js
 		name := filepath.Base(page)
-		fmt.Println("Getting name of page:", page)
+		// fmt.Println("Getting name of page:", page)
 
 		// template set will has some functions
 		// Must call .Funcs before Parse template

@@ -10,7 +10,8 @@ import (
 )
 
 func routes(app *config.AppConfig) http.Handler {
-	/*     // Create multiplexed Using pat Package
+	/*     Old code using another router package
+	// Create multiplexed Using pat Package
 	mux := pat.New()
 	mux.Get("/", http.HandlerFunc(handlers.Repo.Home))
 	mux.Get("/about", http.HandlerFunc(handlers.Repo.About))
@@ -28,7 +29,7 @@ func routes(app *config.AppConfig) http.Handler {
 	// SessionLoad loads and saves the session on every request
 	mux.Use(SessionLoad)
 
-	// Handlers get request
+	// Handlers GET request
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
 	mux.Get("/generals-quarters", handlers.Repo.Generals)
@@ -37,8 +38,10 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/contact", handlers.Repo.Contact)
 	mux.Get("/make-reservation", handlers.Repo.Reservation)
 	mux.Get("/reservation-summary", handlers.Repo.ReservationSummary)
+	mux.Get("/choose-room/{id}", handlers.Repo.ChooseRoom) // {{id}}: url variable from chi package
+	mux.Get("/book-room", handlers.Repo.BookRoom)
 
-	// Handlers Post request
+	// Handlers POST request
 	mux.Post("/search-availability", handlers.Repo.PostAvailability)
 	mux.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
 	mux.Post("/make-reservation", handlers.Repo.PostReservation)

@@ -16,20 +16,30 @@ reservation: key -->
                     <tr>
                         <td>Name:</td>
                         <td>{{$res.FirstName}} {{$res.LastName}}</td>
+                    </tr>
 
-                    </tr>
                     <tr>
-                        <td>Arrival:</td>
-                        <td></td>
+                        <td>Room:</td>
+                        <td>{{$res.Room.RoomName}}</td>
                     </tr>
+
                     <tr>
-                        <td>Departure:</td>
-                        <td></td>
+                        <td>Start date (yyyy-mm-dd):</td>
+                        <!-- stringMap["start_date"] -->
+                        <td>{{index .StringMap "start_date"}}</td>
                     </tr>
+
+                    <tr>
+                        <td>End date (yyyy-mm-dd):</td>
+                        <!-- stringMap["end_date"] -->
+                        <td>{{index .StringMap "end_date"}}</td>
+                    </tr>
+
                     <tr>
                         <td>Email:</td>
                         <td>{{$res.Email}}</td>
                     </tr>
+
                     <tr>
                         <td>Phone:</td>
                         <td>{{$res.Phone}}</td>

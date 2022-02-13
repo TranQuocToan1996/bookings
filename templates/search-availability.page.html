@@ -18,8 +18,9 @@
 							class="form-control"
 							type="text"
 							name="start"
-							placeholder="Start date: dd-mm-yyyy"
+							placeholder="Start date: yyyy-mm-dd"
 							required
+							autocomplete="off"
 						/>
 					</div>
 					<div class="col">
@@ -27,8 +28,9 @@
 							class="form-control"
 							type="text"
 							name="end"
-							placeholder="End date: dd-mm-yyyy"
+							placeholder="End date: yyyy-mm-dd"
 							required
+							autocomplete="off"
 						/>
 					</div>
 				</div>
@@ -50,7 +52,8 @@
 	// Call DateRangePicker constructor of vanillajs-range-date-picker
 	const elem = document.getElementById("reservation-date");
 	const rangepicker = new DateRangePicker(elem, {
-		format: "dd-mm-yyyy",
+		format: "yyyy-mm-dd",
+		minDate: new Date(), // Can't choose date from the past
 	});
 </script>
 {{end}}

@@ -1,0 +1,1 @@
+drop_index("user", "users_email_idx")

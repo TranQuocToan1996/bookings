@@ -111,7 +111,7 @@
 										required
 									/>
 									<div id="startDateHelp" class="form-text">
-										Enter your starting date in the form of dd-mm-yyyy.
+										Enter your starting date in the form of yyyy-mm-dd.
 									</div>
 								</div>
 							</div>
@@ -128,7 +128,7 @@
 										required
 									/>
 									<div id="endDateHelp" class="form-text">
-										Enter your ending date in the form of dd-mm-yyyy.
+										Enter your ending date in the form of yyyy-mm-dd.
 									</div>
 								</div>
 							</div>
@@ -140,7 +140,7 @@
 									class="form-control"
 									type="text"
 									name="start"
-									placeholder="Start date: dd-mm-yyyy"
+									placeholder="Start date: yyyy-mm-dd"
 									required
 								/>
 							</div>
@@ -149,7 +149,7 @@
 									class="form-control"
 									type="text"
 									name="end"
-									placeholder="End date: dd-mm-yyyy"
+									placeholder="End date: yyyy-mm-dd"
 									required
 								/>
 							</div>
@@ -213,7 +213,7 @@
 			// Call DateRangePicker constructor of vanillajs-range-date-picker
 			const elem = document.getElementById("reservation-date");
 			const rangepicker = new DateRangePicker(elem, {
-				format: "dd-mm-yyyy",
+				format: "yyyy-mm-dd",
 			});
 
 			// notie notifications
@@ -325,7 +325,7 @@
 						willOpen: () => {
 							const elem = document.getElementById("reservation-dates-modal");
 							const rangePicker = new DateRangePicker(elem, {
-								format: "dd-mm-yyyy",
+								format: "yyyy-mm-dd",
 								showOnFocus: true,
 							});
 						},
