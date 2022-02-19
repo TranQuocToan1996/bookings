@@ -18,14 +18,13 @@ This is the repository for my bookings and reservations project.
  
 /*
 Things you can do:
-    - Run go test:
-        go test -v
+    - Run go test: 
+        ```go test -v```
         
     - Check your coverage with this command:
-        go test -cover
+        ```go test -cover```
 
     - Get your coverage in the browser with this command:
-        go test -coverprofile=coverage.out && go tool cover -html=coverage.out
-        Tip: Using alias for short command
-        alias yourCommandName="go test -coverprofile=coverage.out && go tool cover -html=coverage.out"
+        ```go test -coverprofile=coverage.out && go tool cover -html=coverage.out```
+
 */

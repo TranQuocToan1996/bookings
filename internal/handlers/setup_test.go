@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"encoding/gob"
 	"fmt"
 	"html/template"
@@ -8,11 +9,13 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"testing"
 	"time"
 
 	"github.com/TranQuocToan1996/bookings/internal/config"
 	"github.com/TranQuocToan1996/bookings/internal/models"
 	"github.com/TranQuocToan1996/bookings/internal/render"
+	"github.com/TranQuocToan1996/bookings/internal/repository/dbrepo"
 	"github.com/alexedwards/scs/v2"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -24,10 +27,18 @@ var session *scs.SessionManager
 var pathToTemplates = "./../../templates"
 var functions = template.FuncMap{}
 
-func getRoutes() http.Handler {
+// NewRepo creates a new Repository
+func NewTestRepo(a *config.AppConfig) *Repository {
+	return &Repository{
+		App: a,
+		DB:  dbrepo.NewTestingRepo(a),
+	}
+}
+
+func TestMain(m *testing.M) {
 	// https://stackoverflow.com/questions/47071276/decode-gob-output-without-knowing-concrete-types
 	// Tell application about things (Premitive types) we need store in session
-	gob.Register(models.Revervation{})
+	gob.Register(models.Reservation{})
 
 	// Production
 	app.InProduction = false
@@ -57,11 +68,17 @@ func getRoutes() http.Handler {
 	app.TemplateCache = tc
 	app.UseCache = true
 
-	repo := NewRepo(&app)
+	repo := NewTestRepo(&app)
 	// Pass new repo to handler
 	NewHandlers(repo)
 
 	render.NewRenderer(&app)
+
+	// start to running test, after that exit program
+	os.Exit(m.Run())
+}
+
+func getRoutes() http.Handler {
 
 	// Using chi
 	mux := chi.NewRouter()
@@ -122,7 +139,7 @@ func SessionLoad(next http.Handler) http.Handler {
 // WriteToConsole log some text to terminal when client load a page
 func WriteToConsole(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Hit the page: " + r.Host + r.URL.Path)
+		// fmt.Println("Hit the page: " + r.Host + r.URL.Path)
 		next.ServeHTTP(w, r)
 	})
 }
@@ -142,7 +159,6 @@ func CreateTestTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		// fmt.Println(filepath.Base("/foo/bar/baz.js")) return baz.js
 		name := filepath.Base(page)
-		// fmt.Println("Getting name of page:", page)
 
 		// template set will has some functions
 		// Must call .Funcs before Parse template
@@ -171,4 +187,14 @@ func CreateTestTemplateCache() (map[string]*template.Template, error) {
 	}
 
 	return myCache, nil
+}
+
+// Get context include session data
+func getCtx(r *http.Request) context.Context {
+	// ctx is context contains session data
+	ctx, err := session.Load(r.Context(), r.Header.Get("X-Session"))
+	if err != nil {
+		log.Println(err)
+	}
+	return ctx
 }

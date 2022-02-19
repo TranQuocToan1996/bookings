@@ -31,7 +31,7 @@ type Restriction struct {
 }
 
 // Revervation is the Revervations model
-type Revervation struct {
+type Reservation struct {
 	ID        int
 	FirstName string
 	LastName  string
@@ -56,6 +56,6 @@ type RoomRestriction struct {
 	CreateAt      time.Time
 	UpdateAt      time.Time
 	Room          Room
-	Reservation   Revervation
+	Reservation   Reservation
 	Restriction   Restriction
 }

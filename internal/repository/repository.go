@@ -10,7 +10,7 @@ import (
 type DatabaseRepo interface {
 	AllUsers() bool
 
-	InsertReservation(res *models.Revervation) (int, error)
+	InsertReservation(res *models.Reservation) (int, error)
 
 	InsertRoomRestriction(r *models.RoomRestriction) error
 

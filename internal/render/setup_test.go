@@ -21,7 +21,7 @@ var testApp config.AppConfig
 func TestMain(m *testing.M) {
 
 	// Set up session for testing
-	gob.Register(models.Revervation{})
+	gob.Register(models.Reservation{})
 	testApp.InProduction = false
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	testApp.InfoLog = infoLog

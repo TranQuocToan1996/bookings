@@ -7,6 +7,18 @@ import (
 	"github.com/TranQuocToan1996/bookings/internal/repository"
 )
 
+type testDBRepo struct {
+	App *config.AppConfig
+	DB  *sql.DB
+}
+
+// Return new repo for postgres database
+func NewTestingRepo(a *config.AppConfig) repository.DatabaseRepo {
+	return &testDBRepo{
+		App: a,
+	}
+}
+
 type postgresDBRepo struct {
 	App *config.AppConfig
 	DB  *sql.DB

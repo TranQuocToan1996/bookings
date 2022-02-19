@@ -100,7 +100,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		// fmt.Println(filepath.Base("/foo/bar/baz.js")) return baz.js
 		name := filepath.Base(page)
-		fmt.Println("Getting name of page:", page)
+		// fmt.Println("Getting name of page:", page)
 
 		// template set will has some functions
 		// Must call .Funcs before Parse template

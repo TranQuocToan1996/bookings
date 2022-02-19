@@ -13,7 +13,7 @@ func (m *postgresDBRepo) AllUsers() bool {
 }
 
 // InsertReservation inserts a reservation into database
-func (m *postgresDBRepo) InsertReservation(res *models.Revervation) (int, error) {
+func (m *postgresDBRepo) InsertReservation(res *models.Reservation) (int, error) {
 
 	// Context, if for any reasons that Insert not complete within 3 seconds, cancel connection
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)

@@ -55,7 +55,7 @@ func run() (*driver.DB, error) {
 	// https://stackoverflow.com/questions/47071276/decode-gob-output-without-knowing-concrete-types
 	// Tell application about things (Premitive types) we need store in session
 	// In other words, we register Revervation to save in session
-	gob.Register(models.Revervation{})
+	gob.Register(models.Reservation{})
 	gob.Register(models.User{})
 	gob.Register(models.Room{})
 	gob.Register(models.Restriction{})
@@ -63,7 +63,7 @@ func run() (*driver.DB, error) {
 	// Production
 	app.InProduction = false
 
-	// Declare log
+	// Declare log for appconfig
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	app.InfoLog = infoLog
 	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
