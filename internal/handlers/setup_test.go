@@ -59,6 +59,12 @@ func TestMain(m *testing.M) {
 
 	app.Session = session
 
+	// Channel listen for email (Use for testing only)
+	mailChan := make(chan models.MailData)
+	app.MailChan = mailChan
+	defer close(mailChan)
+	listenForMail()
+
 	// Create template cache (map data structure of Golang)
 	tc, err := CreateTestTemplateCache()
 	if err != nil {
@@ -197,4 +203,13 @@ func getCtx(r *http.Request) context.Context {
 		log.Println(err)
 	}
 	return ctx
+}
+
+func listenForMail() {
+	go func() {
+		for {
+			// Get email but do nothing to it (To make app.MailChan waiting for receiver forever)
+			_ = <-app.MailChan
+		}
+	}()
 }

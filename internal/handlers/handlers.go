@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -102,47 +103,19 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 }
 
 func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
-
-	// Get roomID, roomName, startDate, endDate from session Reservation(Get method)
-	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
-	if !ok {
-		m.App.Session.Put(r.Context(), "error", "can't get reservation information from session!")
-		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
-		return
-	}
-
-	/* 	Old code, getting data from the post form -> user had to type more than now
-	   	//Get date and format to Vietnam date
-	   	layout := "2006-01-02" // Mon Jan 2 15:04:05 -0700 MST 2006 (01/02 03:04:05PM '06 -0700) --> yyyy-mm-dd
-	   	startDate, err := time.Parse(layout, r.Form.Get("start_date"))
-	   	if err != nil {
-	   		helpers.ServerError(w, err)
-	   		return
-	   	}
-	   	endDate, err := time.Parse(layout, r.Form.Get("end_date"))
-	   	if err != nil {
-	   		helpers.ServerError(w, err)
-	   		return
-	   	}
-	   	roomID, err := strconv.Atoi(r.Form.Get("room_id"))
-	   	if err != nil {
-	   		helpers.ServerError(w, err)
-	   		return
-	   	}
-	   	reservation := models.Reservation{
-	   		FirstName: r.Form.Get("first_name"),
-	   		LastName:  r.Form.Get("last_name"),
-	   		Email:     r.Form.Get("email"),
-	   		Phone:     r.Form.Get("phone"),
-	   		StartDate: startDate,
-	   		EndDate:   endDate,
-	   		RoomID:    roomID,
-	   	} */
-
 	// Update info from post form
 	err := r.ParseForm()
 	if err != nil {
 		m.App.Session.Put(r.Context(), "error", "Can't parse form!")
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		return
+	}
+
+	// 15.5  Creating and sending mail notifications
+	// Get roomID, roomName, startDate, endDate from session Reservation(Get method)
+	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
+	if !ok {
+		m.App.Session.Put(r.Context(), "error", "can't get reservation information from session!")
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
@@ -195,6 +168,42 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
+
+	// Send notifications - first to guest who wants book room
+	htmlMessageGuest := fmt.Sprintf(`
+		<strong>Reservation confirmation</strong><br>
+		Dear %s:, <br>
+		This is confirmed your reservation from %s to %s.
+	`, reservation.FirstName,
+		reservation.StartDate.Format(layout),
+		reservation.EndDate.Format(layout))
+
+	msg := models.MailData{
+		To:       reservation.Email,
+		From:     "me@here.com",
+		Subject:  "Reservation confirmation",
+		Content:  htmlMessageGuest,
+		Template: "basic.html",
+	}
+	m.App.MailChan <- msg
+
+	// Send notifications - first to Owner rooms
+	htmlMessageOwner := fmt.Sprintf(`
+		<strong>Reservation alert</strong> <br>
+		Dear %s, <br>
+		This is alerted your room from %s to %s.
+	`, reservation.FirstName,
+		reservation.StartDate.Format(layout),
+		reservation.EndDate.Format(layout))
+
+	msg = models.MailData{
+		To:       reservation.Email,
+		From:     "me@here.com",
+		Subject:  "Reservation alert",
+		Content:  htmlMessageOwner,
+		Template: "basic.html",
+	}
+	m.App.MailChan <- msg
 
 	// Update reservation into session
 	// Write Reservation info into session, we will add logic to added this info into reservation-summary.page.html
