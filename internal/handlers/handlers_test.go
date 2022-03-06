@@ -23,10 +23,10 @@ var reservation = models.Reservation{
 	},
 }
 
-type postData struct {
-	key   string
-	value string
-}
+// type postData struct {
+// 	key   string
+// 	value string
+// }
 
 // Test data is the slice of struct
 var theTestsGET = []struct {
@@ -42,8 +42,14 @@ var theTestsGET = []struct {
 	{"majorsSuite", "/majors-suite", "GET", http.StatusOK},
 	{"seachAvailability", "/search-availability", "GET", http.StatusOK},
 	{"contact", "/contact", "GET", http.StatusOK},
-	// {"makeReservation", "/make-reservation", "GET", []postData{}, http.StatusOK},
+	{"nonExistRoute", "/non/exist/route", "GET", http.StatusNotFound},
 
+	{"login", "/user/login", "GET", http.StatusOK},
+	{"logout", "/user/logout", "GET", http.StatusOK},
+	{"dashboard", "/admin/dashboard", "GET", http.StatusOK},
+	{"newRes", "/admin/reservations-new", "GET", http.StatusOK},
+	{"allRes", "/admin/reservations-all", "GET", http.StatusOK},
+	{"showRes", "/admin/reservations/new/1/show", "GET", http.StatusOK},
 }
 
 func TestHanlers(t *testing.T) {
@@ -727,5 +733,82 @@ func TestRepository_PostAvailability(t *testing.T) {
 	// since we have rooms available, we expect to get status http.StatusTemporaryRedirect
 	if rr.Code != http.StatusTemporaryRedirect {
 		t.Errorf("Post availability when database query fails gave wrong status code: got %d, wanted %d", rr.Code, http.StatusTemporaryRedirect)
+	}
+}
+
+var loginTests = []struct {
+	name               string
+	email              string
+	expectedStatusCode int
+	expectedHTML       string
+	expectedLocation   string
+}{
+	// Hard code valid email in Authenticate(test-repo.go)
+	{
+		"valid-credentials",
+		"validEmail@here.com",
+		http.StatusSeeOther,
+		"",
+		"/",
+	},
+	{
+		"invalid-credentials",
+		"invalidEmail@here.com",
+		http.StatusSeeOther,
+		"",
+		"/user/login",
+	},
+	{
+		"invalid-data",
+		"j",
+		http.StatusOK,
+		`action="/user/login"`,
+		"",
+	},
+}
+
+func TestLogin(t *testing.T) {
+	for _, e := range loginTests {
+		// Create post data
+		postData := url.Values{}
+		postData.Add("email", e.email)
+		postData.Add("password", "password")
+
+		// Create request
+		req, _ := http.NewRequest("POST", "/user/login", strings.NewReader(postData.Encode()))
+		ctx := getCtx(req)
+		req = req.WithContext(ctx)
+
+		// Set header
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+		rr := httptest.NewRecorder()
+
+		// call the handlers
+		handler := http.HandlerFunc(Repo.PostShowLogin)
+		handler.ServeHTTP(rr, req)
+
+		if rr.Code != e.expectedStatusCode {
+			t.Errorf("failed %s: expected code %d, but got %d", e.name, e.expectedStatusCode, rr.Code)
+		}
+
+		// Check the URL response from the handler
+		if e.expectedLocation != "" {
+			// Get url from test
+			actualLoc, _ := rr.Result().Location()
+			if actualLoc.String() != e.expectedLocation {
+				t.Errorf("failed %s: expected location %s, but got %s", e.name, e.expectedLocation, actualLoc.String())
+			}
+		}
+
+		// checking expected for value in HTML
+		if e.expectedHTML != "" {
+			// Read response body into string
+			html := rr.Body.String()
+
+			if !strings.Contains(html, e.expectedHTML) {
+				t.Errorf("failed %s: expected location %s, but got %s", e.name, e.expectedHTML, html)
+			}
+		}
 	}
 }

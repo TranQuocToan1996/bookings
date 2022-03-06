@@ -53,12 +53,12 @@ function Prompt() {
 			focusConfirm: false,
 			showCancelButton: true,
 			showConfirmButton: showConfirmButton,
-			preConfirm: () => {
-				return [
-					document.getElementById("start").value,
-					document.getElementById("end").value,
-				];
-			},
+			// preConfirm: () => {
+			// 	return [
+			// 		document.getElementById("start").value,
+			// 		document.getElementById("end").value,
+			// 	];
+			// },
 
 			willOpen: () => {
 				if (c.willOpen !== undefined) {

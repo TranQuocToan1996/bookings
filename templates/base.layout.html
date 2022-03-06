@@ -23,8 +23,7 @@
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="https://unpkg.com/notie/dist/notie.min.css"
-		/>
+			href="https://unpkg.com/notie/dist/notie.min.css"/>
 		<link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
 	</head>
 	<body>
@@ -75,10 +74,33 @@
 							</ul>
 						</li>
 						<li class="nav-item">
-							<a href="/contact" class="nav-link">Contact us</a>
+							<a href="/search-availability" class="nav-link" tabindex="-1" aria-disabled="true">Book now</a>
 						</li>
 						<li class="nav-item">
-							<a href="/search-availability" class="nav-link">Book now</a>
+							<a href="/contact" class="nav-link" tabindex="-1" aria-disabled="true">Contact us</a>
+						</li>
+						<li class="nav-item">
+
+							<!-- if IsAuthenticate=1 -->
+							{{if eq .IsAuthenticate 1}}
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+									aria-expanded="false">
+									Admin
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li>
+										<a class="dropdown-item" href="/admin/dashboard">Dashboard</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="/user/logout">Logout</a>
+									</li>
+								</ul>
+						</li>
+							{{else}}
+							<a href="/user/login" class="nav-link" tabindex="-1" aria-disabled="true">Login</a>
+							{{end}}
+
 						</li>
 					</ul>
 				</div>

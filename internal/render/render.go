@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"time"
 
 	"github.com/TranQuocToan1996/bookings/internal/config"
 	"github.com/TranQuocToan1996/bookings/internal/models"
@@ -15,18 +16,54 @@ import (
 	"github.com/justinas/nosurf"
 )
 
-// Create func and pass to template
-var functions = template.FuncMap{}
+// Create func and pass to template for golang template
+var functions = template.FuncMap{
+	"humanDate":  HumanDate,
+	"formatDate": FormatDate,
+	"iterate":    Iterate,
+	"add":        Add,
+}
 
 var app *config.AppConfig
 
 var pathToTemplates = "./templates"
 
+// Add returns a slice of int starting at 1 to count
+func Add(a, b int) int {
+	return a + b
+}
+
+// Iterate returns a slice of int starting at 1 to count
+func Iterate(count int) []int {
+	var i int
+	var items []int
+	for i = 0; i < count; i++ {
+		items = append(items, i)
+	}
+	return items
+}
+
+// HumanDate formats time.Time into yyyy-mm-dd
+func HumanDate(t time.Time) string {
+	return t.Format("2006-01-02")
+}
+
+// FormatDate formats time.Time into yyyy-mm-dd
+func FormatDate(t time.Time, format string) string {
+	return t.Format(format)
+}
+
+// AddDefaultData adds data for all templates
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
 	// taking message from session to user, after that delete that message from session
 	td.Flash = app.Session.PopString(r.Context(), "flash")
 	td.Error = app.Session.PopString(r.Context(), "error")
 	td.Warning = app.Session.PopString(r.Context(), "warning")
+
+	// If user already login return IsAuthenticate=1 when redering templates
+	if app.Session.Exists(r.Context(), "user_id") {
+		td.IsAuthenticate = 1
+	}
 
 	td.CSRFToken = nosurf.Token(r)
 	return td
@@ -72,18 +109,6 @@ func Template(w http.ResponseWriter, r *http.Request, html string, td *models.Te
 	return nil
 
 }
-
-/* Old code - Load the template file from specified directory
-
-t, _ := template.ParseFiles("./templates/" + html)
-// Write to writter
-err = t.Execute(w, nil)
-if err != nil {
-	fmt.Println("Error parsing template: ", err)
-	return
-}
-
-Old code end*/
 
 // CreateTemplateCache return a map of template caches
 func CreateTemplateCache() (map[string]*template.Template, error) {

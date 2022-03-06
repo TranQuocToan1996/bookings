@@ -40,11 +40,34 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/reservation-summary", handlers.Repo.ReservationSummary)
 	mux.Get("/choose-room/{id}", handlers.Repo.ChooseRoom) // {{id}}: url variable from chi package
 	mux.Get("/book-room", handlers.Repo.BookRoom)
+	mux.Get("/user/login", handlers.Repo.ShowLogin)
+	mux.Get("/user/logout", handlers.Repo.Logout)
 
 	// Handlers POST request
 	mux.Post("/search-availability", handlers.Repo.PostAvailability)
 	mux.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
 	mux.Post("/make-reservation", handlers.Repo.PostReservation)
+	mux.Post("/user/login", handlers.Repo.PostShowLogin)
+
+	// Routes handler
+	mux.Route("/admin", func(mux chi.Router) {
+		// TO get access to /admin, login first (In development period, this part can be turned off)
+		mux.Use(Auth)
+
+		// Handle GET request /admin/someOther
+		mux.Get("/dashboard", handlers.Repo.AdminDashboard)
+		mux.Get("/reservations-new", handlers.Repo.AdminNewReservations)
+		mux.Get("/reservations-all", handlers.Repo.AdminAllReservations)
+		mux.Get("/reservations-calendar", handlers.Repo.AdminReservationsCalendar)
+		mux.Get("/reservations/{src}/{id}/show", handlers.Repo.AdminShowReservations)
+		mux.Get("/process-reservation/{src}/{id}/do", handlers.Repo.AdminProcessReservation)
+		mux.Get("/delete-reservation/{src}/{id}/do", handlers.Repo.AdminDeleteReservation)
+
+		// Handle POST request /admin/someOther
+		mux.Post("/reservations/{src}/{id}", handlers.Repo.AdminPostShowReservations)
+		mux.Post("/reservations-calendar", handlers.Repo.AdminPostReservationsCalendar)
+
+	})
 
 	// FileServer is the place to get static files
 	fileServer := http.FileServer(http.Dir("./static/"))

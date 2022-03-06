@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/gob"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -32,6 +33,11 @@ func main() {
 		log.Fatal(err)
 	}
 	defer db.SQL.Close()
+	defer close(app.MailChan)
+
+	// Listen continuous for an email
+	infoLog.Println("Starting mail listener!")
+	listenForMail()
 
 	fmt.Println("Starting application on port:", portNumber)
 	// Start the server
@@ -59,16 +65,39 @@ func run() (*driver.DB, error) {
 	gob.Register(models.User{})
 	gob.Register(models.Room{})
 	gob.Register(models.Restriction{})
+	gob.Register(map[string]int{})
+
+	// read flags from terminal
+	inProduction := flag.Bool("production", true, "Application is in production")
+	useCache := flag.Bool("cache", true, "Save loading template in cache for reduce loading times")
+	dbName := flag.String("dbname", "", "Database name")
+	dbHost := flag.String("dbhost", "localhost", "Database host")
+	dbUser := flag.String("dbuser", "", "Database user")
+	dbPass := flag.String("dbpass", "", "Database password")
+	dbPort := flag.String("dbport", "5432", "Database port")
+	dbSSL := flag.String("dbssl", "disable", "Database SSL setting (disable, prefer, require)")
+
+	// Parse the flags
+	flag.Parse()
+	if *dbName == "" || *dbUser == "" {
+		log.Println("Missing require flags")
+		os.Exit(1)
+	}
 
 	// Production
-	app.InProduction = false
+	app.InProduction = *inProduction
+	app.UseCache = *useCache
 
-	// Declare log for appconfig
+	// Create mail channel
+	mailChan := make(chan models.MailData) // We not going to close channel here it will close after run() finish
+	app.MailChan = mailChan
+
+	// Declare logs for appconfig
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	app.InfoLog = infoLog
 	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 	app.ErrorLog = errorLog
-
+``
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	// Keep session even after close window/browser
@@ -80,7 +109,8 @@ func run() (*driver.DB, error) {
 	app.Session = session
 
 	// Connect to database
-	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=bookings user=postgres password=postgres")
+	connectionString := fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=%s", *dbHost, *dbPort, *dbName, *dbUser, *dbPass, *dbSSL)
+	db, err := driver.ConnectSQL(connectionString)
 	if err != nil {
 		log.Fatal("Can't connect to database! Exiting...")
 	}
@@ -94,7 +124,6 @@ func run() (*driver.DB, error) {
 		return nil, err
 	}
 	app.TemplateCache = tc
-	app.UseCache = false
 
 	repo := handlers.NewRepo(&app, db)
 	// Pass new repo to handler

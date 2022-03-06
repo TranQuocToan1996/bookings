@@ -25,7 +25,13 @@ import (
 var app config.AppConfig
 var session *scs.SessionManager
 var pathToTemplates = "./../../templates"
-var functions = template.FuncMap{}
+
+var functions = template.FuncMap{
+	"humanDate":  render.HumanDate,
+	"formatDate": render.FormatDate,
+	"iterate":    render.Iterate,
+	"add":        render.Add,
+}
 
 // NewRepo creates a new Repository
 func NewTestRepo(a *config.AppConfig) *Repository {
@@ -39,6 +45,10 @@ func TestMain(m *testing.M) {
 	// https://stackoverflow.com/questions/47071276/decode-gob-output-without-knowing-concrete-types
 	// Tell application about things (Premitive types) we need store in session
 	gob.Register(models.Reservation{})
+	gob.Register(models.User{})
+	gob.Register(models.Room{})
+	gob.Register(models.Restriction{})
+	gob.Register(map[string]int{})
 
 	// Production
 	app.InProduction = false
@@ -112,6 +122,20 @@ func getRoutes() http.Handler {
 	mux.Post("/search-availability", Repo.PostAvailability)
 	mux.Post("/search-availability-json", Repo.AvailabilityJSON)
 	mux.Post("/make-reservation", Repo.PostReservation)
+
+	mux.Get("/user/login", Repo.ShowLogin)
+	mux.Get("/user/logout", Repo.Logout)
+	mux.Post("/user/login", Repo.PostShowLogin)
+
+	mux.Get("/admin/dashboard", Repo.AdminDashboard)
+	mux.Get("/admin/reservations-new", Repo.AdminNewReservations)
+	mux.Get("/admin/reservations-all", Repo.AdminAllReservations)
+	mux.Get("/admin/reservations-calendar", Repo.AdminReservationsCalendar)
+	mux.Get("/admin/reservations/{src}/{id}/show", Repo.AdminShowReservations)
+	mux.Get("/admin/process-reservation/{src}/{id}/do", Repo.AdminProcessReservation)
+	mux.Get("/admin/delete-reservation/{src}/{id}/do", Repo.AdminDeleteReservation)
+	mux.Post("/admin/reservations/{src}/{id}", Repo.AdminPostShowReservations)
+	mux.Post("/admin/reservations-calendar", Repo.AdminPostReservationsCalendar)
 
 	// FileServer is the place to get static files
 	fileServer := http.FileServer(http.Dir("./static/"))
@@ -209,7 +233,7 @@ func listenForMail() {
 	go func() {
 		for {
 			// Get email but do nothing to it (To make app.MailChan waiting for receiver forever)
-			_ = <-app.MailChan
+			<-app.MailChan
 		}
 	}()
 }
