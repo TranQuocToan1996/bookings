@@ -97,7 +97,7 @@ func run() (*driver.DB, error) {
 	app.InfoLog = infoLog
 	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 	app.ErrorLog = errorLog
-``
+
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	// Keep session even after close window/browser

@@ -110,7 +110,7 @@ func (t *testDBRepo) Authenticate(email, testPassword string) (int, string, erro
 
 		return 1, "", nil
 	}
-	return 0, "", errors.New("Error Authenticate")
+	return 0, "", errors.New("error Authenticate in testing mode, successful testing")
 }
 
 // AllReservations returns a slice of all reservations (R in CRUD)
