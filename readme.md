@@ -26,14 +26,29 @@ This is the repository for my bookings and reservations project.
 
 - To build and run the application, from the root level of the project, refer the file: windowsRun.sh and linuxBuild.sh
 or refer this below command
-```go build -o bookings ./cmd/web/ && ./bookings -dbname=yourDatabaseName -dbuser=yourDatabaseUserName```
+
+    ```
+    go build -o bookings ./cmd/web/ && ./bookings -dbname=yourDatabaseName -dbuser=yourDatabaseUserName
+    ```
+
 for full list of command use "./bookings -h"
 
 
 - For the testing:
     - Run go test: 
-        ```go test -v```
+
+        ```
+        go test -v
+        ```
+
     - Check your coverage with this command:
-        ```go test -cover```
+
+        ```
+        go test -cover
+        ```
+
     - Get your coverage in the browser with this command:
-        ```go test -coverprofile=coverage.out && go tool cover -html=coverage.out```
+
+        ```
+        go test -coverprofile=coverage.out && go tool cover -html=coverage.out
+        ```
