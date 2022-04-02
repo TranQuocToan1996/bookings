@@ -24,11 +24,6 @@ var reservation = models.Reservation{
 	},
 }
 
-// type postData struct {
-// 	key   string
-// 	value string
-// }
-
 // Test data is the slice of struct
 var theTestsGET = []struct {
 	testName         string
@@ -216,7 +211,6 @@ func TestRepository_PostReservation(t *testing.T) {
 		RoomID: 2,
 	}
 
-	// Hard code error Insert when roomID == 2 in session
 	postedData = url.Values{}
 	postedData.Add("start_date", "2050-01-01")
 	postedData.Add("end_date", "2050-01-02")
@@ -236,32 +230,6 @@ func TestRepository_PostReservation(t *testing.T) {
 	if responseRecorder.Code != http.StatusSeeOther {
 		t.Errorf("Reservation handler returned wrong code: Got %d, wanted %d", responseRecorder.Code, http.StatusSeeOther)
 	}
-
-	/* Case 6: InsertRoomRestriction error - add later*/
-
-	/* 	// setup
-
-	   	// Hard code error Insert when restrictionID == 2 in session
-	   	postedData = url.Values{}
-	   	postedData.Add("start_date", "2050-01-01")
-	   	postedData.Add("end_date", "2050-01-02")
-	   	postedData.Add("first_name", "John")
-	   	postedData.Add("last_name", "Smith")
-	   	postedData.Add("email", "example@example.com")
-	   	postedData.Add("phone", "0999999999")
-	   	postedData.Add("room_id", "1000")
-
-	   	req, _ = http.NewRequest("POST", "/make-reservation", strings.NewReader(postedData.Encode()))
-	   	ctx = getCtx(req)
-	   	req = req.WithContext(ctx)
-	   	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	   	responseRecorder = httptest.NewRecorder()
-	   	session.Put(ctx, "reservation", reservation) // Add reservation to session
-	   	handler = http.HandlerFunc(Repo.PostReservation)
-	   	handler.ServeHTTP(responseRecorder, req)
-	   	if responseRecorder.Code != http.StatusSeeOther {
-	   		t.Errorf("Reservation handler returned wrong code: Got %d, wanted %d", responseRecorder.Code, http.StatusSeeOther)
-	   	} */
 
 }
 

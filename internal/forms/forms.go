@@ -27,10 +27,6 @@ func New(data url.Values) *Form {
 func (f *Form) Has(field string) bool {
 	valueField := f.Get(field)
 	return valueField != ""
-	// if valueField != "" {
-	// 	return true
-	// }
-	// return false
 }
 
 // Check for required fields

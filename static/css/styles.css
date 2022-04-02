@@ -1,11 +1,21 @@
-.my-footer {
-	height: 5em;
-	background-color: #163b65;
-	margin-top: 1em;
-	padding: 1em;
-	color: white;
-	font-size: 100%;
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: table;
 }
+
+footer {
+	position: relative;
+	display: table-row;
+	bottom: 0;
+	width: 100%;
+	height: 0;
+	background: #6cf;
+	margin-top : 20px;
+	min-height:100%;
+}
+
 
 .room-image {
 	max-width: 50%;

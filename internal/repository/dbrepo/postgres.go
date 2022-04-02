@@ -52,7 +52,7 @@ func (p *postgresDBRepo) InsertRoomRestriction(r *models.RoomRestriction) error 
 	defer cancel()
 
 	query := `insert into	room_restriction 
-	(start_date, end_date, room_id, reservation_id , created_at, updated_at, restriction_id)
+	(start_date, end_date, room_ID, reservation_id , created_at, updated_at, restriction_id)
 	values  ($1, $2, $3, $4, $5, $6, $7)`
 	_, err := p.DB.ExecContext(ctx, query,
 		r.StartDate,

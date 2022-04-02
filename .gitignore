@@ -1,4 +1,8 @@
 .idea
 database.yml
 bookings.exe
+bookings
 coverage.out
+bookings.sql
+bookingsLinux
+bookingsWindows

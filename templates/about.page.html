@@ -1,11 +1,404 @@
-{{template "base" .}}
+<!DOCTYPE html>
+<html lang="en">
 
-{{define "content"}}
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<h1>This is the about page</h1>
-		</div>
-	</div>
-</div>
-{{end}}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Specify a default target for all hyperlinks and forms on a page -->
+		<base target="_blank">
+
+		<link rel="stylesheet" href="../static/css/aboutMe.css">
+
+		<!-- =====BOX ICONS===== -->
+		<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+
+		<title>Toan's resume</title>
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/x-icon" href="../static/images/favicon/favicon.ico">
+		<link rel="apple-touch-icon" sizes="57x57" href="../static/images/favicon/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="../static/images/favicon/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="../static/images/favicon/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="../static/images/favicon/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="../static/images/favicon/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="../static/images/favicon/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="../static/images/favicon/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="../static/images/favicon/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="../static/images/favicon/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192" href="../static/images/favicon/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="../static/images/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="../static/images/favicon/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="../static/images/favicon/favicon-16x16.png">
+		<link rel="manifest" href="../static/images/favicon/manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="../static/images/favicon/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+
+	</head>
+
+	<body>
+		<!--===== HEADER =====-->
+		<header class="l-header">
+			<nav class="nav bd-grid">
+				<div>
+					<a href="#" class="nav__logo">Tran Quoc Toan</a>
+				</div>
+
+				<div class="nav__menu" id="nav-menu">
+					<ul class="nav__list">
+						<li class="nav__item"><a href="/" class="nav__link active">Bookings homepage</a></li>
+						<li class="nav__item"><a href="#about" class="nav__link">About me</a></li>
+						<li class="nav__item"><a href="#projects" class="nav__link">Project</a></li>
+						<li class="nav__item"><a href="#backGround" class="nav__link">Work Experience</a></li>
+						<li class="nav__item"><a href="#learning" class="nav__link">Learning</a></li>
+					</ul>
+				</div>
+
+				<div class="nav__toggle" id="nav-toggle">
+					<i class='bx bx-menu'></i>
+				</div>
+			</nav>
+		</header>
+
+		<main class="l-main">
+			<!--===== HOME =====-->
+			<section class="home bd-grid" id="home">
+				<div class="home__data">
+					<h1 class="home__title">Hi,<br>I'am <span class="home__title-color">Toan</span><br> Backend fresher
+					</h1>
+
+					<!-- add later -->
+					<a href="https://drive.google.com/file/d/11tjQkvxI0vZh1ZUi5dIpxzYJFGpFGbSp/view?usp=sharing" class="button" target="_blank">My resume</a>
+				</div>
+
+				<div class="home__social">
+					<a href="https://www.linkedin.com/in/tranquoctoan1996" class="home__social-icon" target="_blank"><i
+							class='bx bxl-linkedin'></i></a>
+					<a href="https://github.com/TranQuocToan1996" class="home__social-icon" target="_blank"><i
+							class='bx bxl-github'></i></a>
+					<a href="https://www.youtube.com/channel/UCapcY33RCgyRXJTowF25q3Q" class="home__social-icon"
+						target="_blank"><i class='bx bxl-youtube'></i></i></a>
+				</div>
+
+				<div class="home__img">
+					<svg class="home__blob" viewBox="0 0 479 467" xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink">
+						<mask id="mask0" mask-type="alpha">
+							<path
+								d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" />
+						</mask>
+						<g mask="url(#mask0)">
+							<path
+								d="M9.19024 145.964C34.0253 76.5814 114.865 54.7299 184.111 29.4823C245.804 6.98884 311.86 -14.9503 370.735 14.143C431.207 44.026 467.948 107.508 477.191 174.311C485.897 237.229 454.931 294.377 416.506 344.954C373.74 401.245 326.068 462.801 255.442 466.189C179.416 469.835 111.552 422.137 65.1576 361.805C17.4835 299.81 -17.1617 219.583 9.19024 145.964Z" />
+							<image class="home__blob-img" x="60" y="30" width="300" height="400" alt="Portrait"
+								href="../static/images/Portrait.png" />
+						</g>
+					</svg>
+				</div>
+			</section>
+
+			<!--===== ABOUT =====-->
+			<section class="about section " id="about">
+				<h2 class="section-title">About me</h2>
+
+				<div class="about__container bd-grid">
+
+					<div class="about__img">
+						<img src="../static/images/LongSonFurnaces.jpg" alt="Long Son Furnaces image">
+					</div>
+
+					<div>
+						<h2 class="about__subtitle">Hi, I'm Toan</h2>
+						<ul>
+							<li><strong>Date of birth</strong>: 29/10/1996</li>
+							<li><strong>Expected work location</strong>: HCM city</li>
+							<li><strong>Phone</strong>: 0989669714</li>
+							<li><strong>Email</strong>:<a href="mailto:tranquoctoan.ce@gmail.com"> tranquoctoan.ce@gmail.com</a></li>
+						</ul>
+						<br>
+						<p class="about__text">I'm a chemical engineer who really loves programming. I wanna become a back-end dev. After a few years, I’ll learn
+						front-end to become a full-stack dev. It would be perfect if I can communicate in English on a daily basis.</p>
+						
+					</div>
+				</div>
+			</section>
+
+			<!--===== Project =====-->
+			<section class="skills section" id="projects">
+				<h2 class="section-title">Projects</h2>
+
+				<div class="skills__container bd-grid">
+					<div>
+						<h2 class="skills__subtitle">Project name: Bookings</h2>
+						<pre
+							class="skills__text"><strong>Description:&nbsp;</strong>This is the project for bookings and reservations of house.
+						</pre>
+						<p class="skills__text"><strong>Debug stories:</strong><a href="../static/pdf/debugStoriesForBookingsProject.pdf" target="_blank" rel="noopener noreferrer"> Click here</a></p>
+					</div>
+				</div>
+
+				<div class="skills__container bd-grid">
+					<div>
+						<h2 class="skills__subtitle">Source code</h2>
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class='bx bxl-github skills__icon'></i>
+								<span class="skills__names">GitHub:&nbsp;<a
+										href="https://github.com/TranQuocToan1996/bookings" target="_blank">Click
+										here</a></span>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<h2 class="skills__subtitle">Deploy server</h2>
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class="fab fa-linode">&emsp;</i>
+								<span class="skills__name">Linode:<a
+										href="https://172-104-165-107.ip.linodeusercontent.com/"
+										target="_blank">&nbsp;Click here</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="skills__container bd-grid">
+					<div>
+						<h2 class="skills__subtitle">Version control</h2>
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class='bx bxl-git skills__icon'></i>
+								<span class="skills__name">Git</span>
+							</div>
+						</div>
+					</div>
+
+					<div>
+						<h2 class="skills__subtitle">Database Management System</h2>
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class='bx bxl-postgresql skills__icon'></i>
+								<span class="skills__name">Postgresql</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="skills__container bd-grid">
+					<div>
+						<h2 class="skills__subtitle">Programming Languages</h2>
+
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class='bx bxl-javascript skills__icon'></i>
+								<span class="skills__name">JavaScript</span>
+							</div>
+						</div>
+
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class="fa-brands fa-golang">&emsp;&emsp;</i>
+								<span class="skills__name">Golang</span>
+							</div>
+						</div>
+
+					</div>
+
+					<div>
+						<h2 class="skills__subtitle">Other Languages</h2>
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class='bx bxl-html5 skills__icon'></i>
+								<span class="skills__name">HTML5</span>
+							</div>
+						</div>
+
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class='bx bxl-css3 skills__icon'></i>
+								<span class="skills__name">CSS3</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+
+
+			<!--===== WORK =====-->
+			<section class="work section" id="work">
+				<h2 class="section-title">Work and Background</h2>
+
+				<div class="work__container bd-grid">
+					<div class="work__img" id="furnacesEvening" onclick="toggleHideShow(`mapLongSon`)">
+						<img src="../static/images/LongSonFurnaces2.jpg" alt="Long Son Furnaces In The Evening">
+					</div>
+
+					<ul class="skills__text">
+						<li><strong>Long Son Petrochemical</strong>: 4/2021 to now.
+							<ul>
+								<li><strong>Job title</strong>: Field Operator (Olefins plant)</li>
+								<li><strong>Key skills for web dev:</strong>
+									<ol>
+										<li>English: Mostly with Thai people.</li>
+										<li>Self learning process technology: Books, company documents, internet.</li>
+									</ol>
+								</li>
+								<li><strong>For more about Responsibilities</strong>:
+									<ol>
+										<li><a href="https://drive.google.com/file/d/15YCBEZkt5MFdz7oTwc65cRbUail0qbCA/view"
+												target="_blank">Manpower's Job
+												description</a></li>
+										<li><a href="https://www.linkedin.com/in/tranquoctoan1996" target="_blank">My
+												Linkedin</a>.
+										</li>
+									</ol>
+								</li>
+							</ul>
+						</li>
+					</ul>
+
+					<div id="mapLongSon" style="display: none; visibility: hidden;">
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11258.740306057416!2d107.05727467609044!3d10.461408531652022!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31756d26eaab8957%3A0xa35fc71fbe631746!2sTPSK%20Site%20Office%20-%20Package%20A1%2C%20LSPC%20Project!5e0!3m2!1svi!2s!4v1648524653445!5m2!1svi!2s"
+							width="300" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade"></iframe>
+					</div>
+				</div>
+
+				<div class="work__container bd-grid">
+					<div class="work__img" id="samyang" onclick="toggleHideShow(`mapSamyang`)">
+						<img src="../static/images/samyang.jpg" alt="Fire Fighting at SamyangEP Viet Nam">
+					</div>
+
+					<ul class="skills__text">
+						<li><strong>SamyangEP Viet Nam</strong>: 1/2020 to 4/2021.
+							<ul>
+								<li><strong>Job title</strong>: Production Engineer (Plastic Extruder)</li>
+								<li><strong>Key skills for web dev:</strong>
+								<li>English: Mostly with Korean.</li>
+								<li>Using some production systems from Samyang Data Systems:
+									Found bugs and suggested some ideas to developers</li>
+						</li>
+						<li><strong>For more about responsibilities</strong>:
+							Check<a href="https://www.linkedin.com/in/tranquoctoan1996" target="_blank"> my
+								Linkedin</a>.
+						</li>
+					</ul>
+					</li>
+					</ul>
+
+					<div id="mapSamyang" style="display: none; visibility: hidden;">
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.537673402978!2d106.94355398827382!3d10.692948737688438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31751952130b78ab%3A0x59a4c549772a73db!2sC%C3%94NG%20TY%20TNHH%20SAMYANG%20EP%20VI%E1%BB%86T%20NAM!5e0!3m2!1svi!2s!4v1648537055675!5m2!1svi!2s"
+							width="300" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade"></iframe>
+					</div>
+				</div>
+
+				<div class="work__container bd-grid">
+					<div class="work__img" id="BK" onclick="toggleHideShow(`mapBachKhoa`)">
+						<img src="../static/images/BK.png" alt="BK logo">
+					</div>
+
+					<ul class="skills__text">
+						<li><strong>Bach Khoa University</strong>: 11/2014 to 11/2019.
+							<ul>
+								<li><strong>Majors</strong>: Chemical Engineering, Process and Equipment</li>
+							</ul>
+						</li>
+					</ul>
+
+					<div id="mapBachKhoa" style="display: none; visibility: hidden;">
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3919.4994010295773!2d106.66012040912321!3d10.773010679027367!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xef77cd47a1cc691e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBCw6FjaCBraG9hIC0gxJDhuqFpIGjhu41jIFF14buRYyBnaWEgVFAuSENN!5e0!3m2!1svi!2s!4v1648537919469!5m2!1svi!2s"
+							width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade"></iframe>
+					</div>
+				</div>
+			</section>
+
+
+			<section class="skills section" id="learning">
+				<h2 class="section-title">Learning</h2>
+
+				<div class="skills__container bd-grid">
+					<div>
+						<h2 class="skills__subtitle">Certificates</h2>
+						<div class="skills__data skills__names">
+							<a href="https://drive.google.com/file/d/1-akcJKVrVFeb_5vHlHyLeQyfGAjZNmzD/view?usp=sharing" target="_blank" rel="noopener noreferrer">Microsoft Certified Azure Data Fundamental - DP900 (2021)</a>
+						</div>
+
+						<div class="skills__data skills__names">
+							<a href="https://www.coursera.org/account/accomplishments/specialization/2TU37EG8T6MT" target="_blank" rel="noopener noreferrer">Python for Everybody Specialization (2021)</a>
+						</div>
+
+						<div class="skills__data skills__names">
+							<a href="https://www.coursera.org/account/accomplishments/specialization/SWS5PYE84592" target="_blank" rel="noopener noreferrer">Django for Everybody Specialization (2021)</a>
+						</div>
+						
+						<div class="skills__data skills__names">
+							<a href="https://www.coursera.org/account/accomplishments/verify/XMSMTUBEUMPT" target="_blank" rel="noopener noreferrer">Machine Learning (2021)</a>
+						</div>
+
+						<div class="skills__data skills__names">
+							<a href="https://www.coursera.org/account/accomplishments/verify/HM2MHH2CZU35" target="_blank" rel="noopener noreferrer">Neural Networks and Deep Learning (2021)</a>
+						</div>
+
+						<div class="skills__data skills__names">
+							<a href="https://drive.google.com/file/d/11OvyvnXdP3TdGk82lBDNSNRiiDHPiiLi/view?usp=sharing" target="_blank" rel="noopener noreferrer">English for startup: Vintech city and Business Startup Support center (2019)</a>
+						</div>
+					</div>
+
+					<div>
+						<h2 class="skills__subtitle">Other self-development (No certificates)</h2>
+						<div class="skills__data">
+							<div class="skills__names">
+								<i class="fab fa-youtube">&emsp;</i>
+								<span class="skills__name"><a
+										href="https://www.youtube.com/watch?v=IgKWPdJWuBQ&list=PLw5k0uyL9SiI5S083LLTkuFFGdtMO4G6k"
+										target="_blank">&nbsp;List Ted and talks</a>: Will be updated oftenly.</span>
+							</div>
+						</div>
+
+						<div class="skills__data">
+							<span class="skills__name">&nbsp;&nbsp;TOEIC: 690 (2018).</span>
+						</div>
+						<div class="skills__data">
+							<a href="https://www.efset.org/cert/GEX7xg" class="skills__name" target="_blank">&nbsp;&nbsp;EFSET: 70 (2022). </a>
+							<br>
+							<a href="https://www.efset.org/english-score/#converting-from-one-english-level-to-another" target="_blank" rel="noopener noreferrer">&nbsp;&nbsp;Equivalent TOEIC (R&L): 945+.</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</main>
+
+		<!--===== FOOTER =====-->
+		<footer class="footer">
+			<p class="footer__title">Tran Quoc Toan</p>
+			<div class="footer__social">
+				<a href="https://www.linkedin.com/in/tranquoctoan1996" class="footer__icon"><i
+						class='bx bxl-linkedin'></i></a>
+				<a href="https://github.com/TranQuocToan1996" class="footer__icon"><i class='bx bxl-github'></i></a>
+				<a href="https://www.youtube.com/channel/UCapcY33RCgyRXJTowF25q3Q" class="footer__icon"><i
+						class='bx bxl-youtube'></i></a>
+			</div>
+		</footer>
+
+
+		<!--===== SCROLL REVEAL =====-->
+		<!-- <script src="https://unpkg.com/scrollreveal"></script> -->
+
+		<!--===== MAIN JS =====-->
+		<script src="../static/js/aboutMe.js"></script>
+		<script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
+
+		<script src="https://kit.fontawesome.com/b756786760.js" crossorigin="anonymous"></script>
+	</body>
+
+</html>

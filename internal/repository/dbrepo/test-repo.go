@@ -28,7 +28,7 @@ func (t *testDBRepo) InsertReservation(res *models.Reservation) (int, error) {
 
 // InsertRoomRestriction inserts Room restriction data into database
 func (t *testDBRepo) InsertRoomRestriction(r *models.RoomRestriction) error {
-	if r.RestrictionID == 2 {
+	if r.RoomID == 1000 {
 		return errors.New("some err")
 	}
 	return nil

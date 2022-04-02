@@ -1,6 +1,7 @@
 #!/bin/bash
-# This file for linux and MAC
+# This file for windows user with gitBash
 # build ingore test file
 # "host=localhost port=5432 dbname=bookings user=postgres password=postgres"
-go build -o bookings.exe cmd/web/*.go
-./bookings.exe -dbname=bookings -dbuser=postgres -cache=false -production=false -dbpass=postgres
+# env GOOS=linux go build -o bookings cmd/web/*.go
+go build -o bookings cmd/web/*.go
+./bookings -dbname=bookings -dbuser=postgres -cache=false -production=true -dbpass=postgres

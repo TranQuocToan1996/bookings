@@ -7,5 +7,4 @@ func TestRun(t *testing.T) {
 	if err != nil {
 		t.Error("failed run")
 	}
-	// defer db.SQL.Close()
 }
